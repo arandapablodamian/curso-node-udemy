@@ -1,0 +1,10 @@
+$(base) x 0 = NaN 
+$(base) x 1 = NaN 
+$(base) x 2 = NaN 
+$(base) x 3 = NaN 
+$(base) x 4 = NaN 
+$(base) x 5 = NaN 
+$(base) x 6 = NaN 
+$(base) x 7 = NaN 
+$(base) x 8 = NaN 
+$(base) x 9 = NaN 

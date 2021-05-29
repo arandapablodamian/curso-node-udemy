@@ -1,0 +1,10 @@
+$(base) x 0 = 0 
+$(base) x 1 = 0 
+$(base) x 2 = 0 
+$(base) x 3 = 0 
+$(base) x 4 = 0 
+$(base) x 5 = 0 
+$(base) x 6 = 0 
+$(base) x 7 = 0 
+$(base) x 8 = 0 
+$(base) x 9 = 0 
