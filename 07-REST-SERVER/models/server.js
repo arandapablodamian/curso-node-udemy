@@ -1,59 +1,36 @@
 const express= require('express')
 var cors = require('cors')
+const { dbConnection } = require('../database/config')
 
 
 class Server {
     constructor(){
         this.app = express()
         this.port = process.env.PORT
+        this.usuariosPath = '/api/usuarios'
 
+        // conectar a base de datos
+        this.conectarDB()
         // middleware
         this.middleware()
         // rutas de aplicación
         this.routes()
     }
 
+    async conectarDB(){
+        await dbConnection();
+    }
     middleware() {
         this.app.use( cors() )
+
+        // parseo y lectura del body
+        this.app.use( express.json())
+        
         this.app.use( express.static('public'))
     }
 
     routes(){
-        this.app.get('/api', (req, res) => {
-            res.json({
-                'ok':true,
-                "msg": "get api"
-            })
-        })
-
-        this.app.put('/api', (req, res) => {
-            res.json({
-                'ok':true,
-                "msg": "put api"
-            })
-        })
-
-
-        this.app.post('/api', (req, res) => {
-            res.json({
-                'ok':true,
-                "msg": "post api"
-            })
-        })
-
-        this.app.delete('/api', (req, res) => {
-            res.json({
-                'ok':true,
-                "msg": "delete api"
-            })
-        })
-
-        this.app.get('/error', (req, res) => {
-            res.status(403).json({
-                'ok':false,
-                "msg": "Error not found"
-            })
-        })
+        this.app.use(this.usuariosPath, require('../routes/user'))
     }
 
     listen(){
