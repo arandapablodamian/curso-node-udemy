@@ -95,12 +95,14 @@ const usuariosDelete = async (req, res = response ) => {
 
     const { id } = req.params;
 
+    // const uid = req.uid
     // const usuario = await Usuario.findByIdAndDelete( id )
     // baja logica por defecto traigo el estado en false
     const usuario = await Usuario.findByIdAndUpdate(id, { estado: false })
-
+    const usuarioAutenticado = req.usuario
     res.json({
-        usuario
+        usuario,
+        usuarioAutenticado
     })
 }
 

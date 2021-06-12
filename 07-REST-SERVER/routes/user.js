@@ -1,12 +1,23 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
-const { validarCampos } = require('../middlewares/validar-campos')
 const { esRoleValido,emailExiste, existeUsuarioPorId } = require('../helpers/db-validators')
+// const { validarCampos } = require('../middlewares/validar-campos')
+// const { validarJWT } = require('../middlewares/validar-jwt')
+// const { esAdminRole, tieneRole } = require('../middlewares/validar-roles')
+
+// para llamar a los require de arriba pero en una sola vez e importados en el archivo index.js de la carpeta
+const {
+    validarCampos,
+    validarJWT,
+    esAdminRole,
+    tieneRole
+} = require('../middlewares')
 
 const { usuariosGet,
     usuariosPost,
     usuariosPut,
     usuariosDelete } = require('../controllers/user.js')
+
 const router = Router()
 
 router.get('/', usuariosGet)
@@ -33,6 +44,9 @@ router.post('/', [
 ], usuariosPost)
 
 router.delete('/:id',[
+    // esAdminRole,
+    tieneRole('ADMIN_ROLE',"VENTAS_ROLE"),
+    validarJWT,
     check('id','No es un id válido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
 ], usuariosDelete)
